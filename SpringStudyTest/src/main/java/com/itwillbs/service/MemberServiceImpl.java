@@ -59,6 +59,12 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
+	public List<MemberVO> memberInfoToId(String userid) {
+		return mdao.memberInfoToId(userid);
+	}
+	
+	
+	@Override
 	public int memberUpdate(MemberVO uvo) {
 		logger.debug("memberUpdate(MemberVO uvo) 실행");
 		return mdao.updateMember(uvo);
@@ -76,6 +82,9 @@ public class MemberServiceImpl implements MemberService{
 		return mdao.getMemberList();
 	}
 	
-	
+	@Override
+	public List<MemberVO> getMemberListInfo(List<String> useridList) {
+		return mdao.getMemberListInfo(useridList);
+	}
 	
 }

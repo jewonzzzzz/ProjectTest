@@ -2,6 +2,7 @@ package com.project.web;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +17,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.MemberVO;
 import com.itwillbs.persistence.MemberDAO;
@@ -266,6 +269,45 @@ public class MemberController {
 		}
 		//model.addAttribute("memberList", memberList2);
 		}
+	
+	
+	
+	// http://localhost:8088/web/member/testPage
+	@GetMapping(value = "/testPage")
+	public String testStep1() {
+		return "/member/testPage";
+	}
+	
+	// http://localhost:8088/web/member/createStep1
+	@GetMapping(value = "/createStep1")
+	public String createStep1() {
+		return "/member/createStep1";
+	}
+	
+	
+	@PostMapping(value = "/getMemberInfo")
+	@ResponseBody
+	public List<MemberVO> getMemberInfo(@RequestBody Map<String, String> requestData ) {
+		System.out.println(requestData);
+		String userid = requestData.get("inputValue");
+		List<MemberVO> resultList = new ArrayList<MemberVO>();
+		
+		if(requestData.get("selectValue").equals("userid")) {
+			resultList = mService.memberInfoToId(userid);
+		}
+		
+		return resultList;
+	}
+	
+	@PostMapping(value = "/getMemberListInfo")
+	@ResponseBody
+	public List<MemberVO> getMemberListInfo(@RequestBody List<String> Data) {
+		System.out.println(Data);
+		
+		return mService.getMemberListInfo(Data);
+	}
+	
+	
 	
 	
 }

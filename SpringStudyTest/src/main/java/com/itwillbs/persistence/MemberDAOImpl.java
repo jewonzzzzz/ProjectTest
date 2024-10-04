@@ -1,5 +1,6 @@
 package com.itwillbs.persistence;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -117,6 +118,13 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	
 	@Override
+	public List<MemberVO> memberInfoToId(String userid) {
+		return sqlSession.selectList(NAMESPACE+".getMemberToId", userid);
+	}
+	
+	
+	
+	@Override
 	public int updateMember(MemberVO uvo) {
 		System.out.println(" DAO : updateMember(MemberVO uvo) 실행");
 		// sql 구문 mapper 생성
@@ -139,5 +147,20 @@ public class MemberDAOImpl implements MemberDAO{
 		// sqlSession 실행 (결과에 따른 정수데이터 리턴)
 		return sqlSession.selectList(NAMESPACE+".getMemberList");
 	}
+	
+	@Override
+	public List<MemberVO> getMemberListInfo(List<String> useridList) {
+		
+		List<MemberVO> memberList = new ArrayList<MemberVO>();
+		
+		for(String userid : useridList) {
+			memberList.add(sqlSession.selectOne(NAMESPACE+".getMemberToId", userid));
+		}
+		
+		return memberList;
+	}
+	
+	
+	
 	
 }

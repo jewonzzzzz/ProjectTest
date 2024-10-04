@@ -23,6 +23,13 @@ public interface MemberDAO {
 	// 사용자 정보조회
 	public MemberVO getMember(String userid);
 	
+	
+	// 아이디로 회원 정보 조회
+	public List<MemberVO> memberInfoToId(String userid);
+	
+	// 등록 버튼시 아이디로 회원 정보 조회
+	public List<MemberVO> getMemberListInfo(List<String> useridList);
+	
 	// 사용자 정보수정
 	public int updateMember(MemberVO uvo);
 	

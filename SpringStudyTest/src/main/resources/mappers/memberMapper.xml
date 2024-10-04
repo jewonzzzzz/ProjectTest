@@ -29,6 +29,12 @@
 		where userid = #{userid}
 	</select>
 	
+	<!-- 사용자 정보조회 -->
+	<select id="getMemberToId" resultType="MemberVO">
+		select * from tbl_member 
+		where userid = #{userid}
+	</select>
+	
 	<!-- 사용자 정보수정 -->
 	<update id="updateMember">
 		update tbl_member 
